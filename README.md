@@ -36,7 +36,7 @@ unk3: Any**,
 unk4: Any**,
 unk5 (will crash the game if changed): Any**,
 unk6 (will crash the game if changed): Any**,
-Who can select: Any** (Should be FFFFFFFF, not 0xFFFFFFFF),
+Who can select: Any** (ex. Should be FFFFFFFF, not 0xFFFFFFFF),
 unk7: Any**,
 Influences GC?: Any**,
 Ring cost for GCs FlagPrice in Shop?: Any**,
@@ -51,5 +51,7 @@ GCh3 Stat Flag: Any**,
 GCh Purchase Modifier: Any**
 ```
 
+```
 Note*: read as floats, but unknown values.
 Note**: can be any value, do not include 0x beforehand. Reference the datasheet for the type of numbers accepted for GCH fields.
+```
