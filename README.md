@@ -1,5 +1,11 @@
 # SRRG_EXGearProgrammer
-A tool designed to print 04 gecko codes in order to modify gear stats and Gear Change data.
+A tool designed to print 04 gecko codes in order to modify gear stats and Gear Change data. Needs python 3.1 or higher. Can be run on the command line.
+Running the tool will present 3 options:
+```
+1. Prints a blank text file with stat and gear change fields. Fill in values of each field in the text file for the ones you want to modify.
+2. Reads the created text file after you fill it out and save the file. It will confirm the stats you entered, then ask for a gear to apply it to. If successful, it will print out a text file with the name of the gear you modified and it contains the 04 codes created with the fields that were filled out.
+3. Exits the program.
+```
 
 ## Accepted data types in the printed text file
 ```
