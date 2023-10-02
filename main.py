@@ -389,7 +389,7 @@ def readGearStatsFile():
         print('No stats/GCHs to generate. Please edit the stats file you made first to create 04 codes.\n')
         return
 
-    gearPrintOpt = input('\nStats printed. Are these ok? (Y/N)\nSelecting \"Y\" will display the gear list.\nTyping anything else returns to the menu.')
+    gearPrintOpt = input('\nStats printed. Are these ok? (Y/N)\nSelecting \"Y\" will display the gear list.\nTyping anything else returns to the menu.\n')
 
     if gearPrintOpt != 'Y' and gearPrintOpt != 'y':
         return
