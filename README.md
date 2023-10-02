@@ -2,6 +2,7 @@
 A tool designed to print 04 gecko codes in order to modify gear stats and Gear Change data.
 
 ## Accepted data types in the printed text file
+```
 Speed Multiplier: Float,
 Accel. Multiplier: Float,
 Handl. Multiplier: Float,
@@ -47,7 +48,8 @@ Gear Stat Flags: Any**,
 GCh1 Stat Flag: Any**,
 GCh2 Stat Flag: Any**,
 GCh3 Stat Flag: Any**,
-GCh Purchase Modifier: Any**,
+GCh Purchase Modifier: Any**
+```
 
 Note*: read as floats, but unknown values.
 Note**: can be any value, do not include 0x beforehand. Reference the datasheet for the type of numbers accepted for GCH fields.
