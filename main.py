@@ -240,7 +240,7 @@ gearGCHStrings = ['unk1',
                   'Who can select',
                   'unk7',
                   'Influences GC?',
-                  'Ring cost for GCs Flag'
+                  'Ring cost for GCs Flag',
                   'Price in Shop?',
                   'Special Flag Innate',
                   'Special Flag for GCh1',
@@ -470,15 +470,11 @@ def readGearStatsFile():
 
     for i in range(26, len(gearGCHStrings) + 26):
         if statArray[i] != "Null":
-            ohFourOffset = hex(gearGCHOffsets[int(gearIDSelect)] + (0x4 * i) - 100)
+            ohFourOffset = hex(gearGCHOffsets[int(gearIDSelect)] + (0x4 * i) - 104)
             ohFourOffset = ohFourOffset.replace("0x80", "04", 1)
             gearFile.writelines(str(ohFourOffset))
             ohFourStats = (statArray[i])  # convert '0x10' to 000000010
-            # try:
-            #   ohFourStats = ohFourStats[2:]  # 0x10 -> 10
             ohFourStats.replace("0x", "", 1)
-            # except:
-            #     ohFourStats = int(ohFourStats)
             totalZeroPad = 8 - len(ohFourStats)
             tempZeros = ''
             for i in range(totalZeroPad):
