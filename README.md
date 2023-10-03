@@ -60,7 +60,7 @@ GCh Purchase Modifier: Any** (int32 bitflag field)
 
 ```
 Note*: read as floats, but unknown values.
-Note**: can be any value, do not include 0x beforehand. Reference the datasheet for the type of numbers accepted for GCH fields.
+Note**: can be any value, do not include 0x beforehand and write in hexadecimal. Reference the datasheet for the type of numbers accepted for GCH fields.
 ```
 Reference the ZG/RG data sheet to check out more information on what data is accepted (the gear/GC flags sheets in particular are very helpful).
 [Link to the sheets is here.](https://docs.google.com/spreadsheets/d/1I5TnDLOdNcSUzm9QK5Imec4r-FJiksDJskieNlqUI74/edit?usp=sharing)
