@@ -385,7 +385,7 @@ def readGearStatsFile():
     for i in range(len(statArray)):
         if statArray[i] == "Null":
             totalNull += 1
-    if totalNull == 45: # sanity check to ensure the user actually modified the file
+    if totalNull == 46: # sanity check to ensure the user actually modified the file
         print('No stats/GCHs to generate. Please edit the stats file you made first to create 04 codes.\n')
         return
 
