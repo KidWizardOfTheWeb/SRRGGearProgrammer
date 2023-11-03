@@ -1,5 +1,5 @@
 # SRRG_EXGearProgrammer
-A tool designed to print 04 gecko codes in order to modify gear stats and Gear Change data. Needs python 3.1 or higher. Can be run on the command line.
+A tool designed to print 04 gecko codes in order to modify gear stats for Vanilla Sonic Riders and Sonic Riders DX. Needs python 3.1 or higher. Can be run on the command line.
 Running the tool will present 3 options:
 ```
 1. Prints a blank text file with stat and gear change fields. Fill in values of each field in the text file for the ones you want to modify.
@@ -9,58 +9,60 @@ Running the tool will present 3 options:
 
 ## Accepted data types in the printed text file
 ```
-Speed Multiplier: Float,
-Accel. Multiplier: Float,
-Handl. Multiplier: Float,
-Unknown1: Float*,
-Unknown2: Float*,
-Off-road Multiplier: Float,
-Accel.1 Threshold: Float,
-Accel.2 Threshold: Float,
-Top Speed: Float,
-Acceleration 1: Float,
-Acceleration 2: Float,
-Acceleration 3: Float,
-Handling: Float,
-Unknown3: Float*,
-Unknown4: Float*,
-Off-road: Float,
-GP Tank Size: Float,
-GC Boost Speed: Float,
-Gravity Dive Spd: Float,
-GP Gain Multiplier: Float,
-Gravity Control Cost: Float,
-Gravity Dive Cost: Float,
-Boost Speed: 32 bit signed int,
-Additional Ring Cap: 16 bit signed int,
-Trick Rank: 8 bit signed int,
-Boost Cost: 8 bit signed int,
+struct Gear {
+	/* 0x0 */ u32 useFlags; ///< which characters can use the gear. these values are bitwise.
+	/* 0x4 */ u8 type;
+	/* 0x5 */ u8 model; ///< the ID to use for loading the extreme gear model
+	/* 0x6 */ u16 costInGearShop;
+	/* 0x8 */ u32 unk8;
+	/* 0xC */ f32 acceleration;
+	/* 0x10 */ f32 topSpeed;
+	/* 0x14 */ f32 offRoadSpeed;
+	/* 0x18 */ f32 speedHandlingMultiplier;
+	/* 0x1C */ f32 weight;
+	/* 0x20 */ fillerData<0x3> unk20;
+	/* 0x23 */ Flag<Type> extraTypeAttributes;
+	/* 0x24 */ f32 turningSpeedLoss;
+	/* 0x28 */ f32 handling;
+	/* 0x2C */ f32 backAxelHandling;
+	/* 0x30 */ f32 frontAxelHandling;
+	/* 0x34 */ f32 driftRadius;
+	/* 0x38 */ f32 driftRotation;
+	/* 0x3C */ f32 backAxelDriftRotation;
+	/* 0x40 */ f32 frontAxelDriftRotation;
+	/* 0x44 */ f32 unk44;
+	/* 0x48 */ f32 unk48;
+	/* 0x4C */ f32 unk4C;
+	/* 0x50 */ s32 driftDashFrames;
+	/* 0x54 */ f32 trickAirGainMultiplier;
+	/* 0x58 */ f32 shortcutAirGainMultiplier;
+	/* 0x5C */ f32 QTEAirGainMultiplier;
+	/* 0x60 */ Flag<SpecialFlags> specialFlags;
+	/* 0x64 */ f32 jumpChargeCostMultiplier;
+	/* 0x68 */ std::array<GearLevelStats, 3> levelStats; *
+	/* 0xBC */ s8 tempoStat;
+	/* 0xBD */ s8 efficiencyStat;
+	/* 0xBE */ s8 combatStat;
+	/* 0xBF */ s8 weightStat;
+	/* 0xC0 */ u32 unkC0;
+	/* 0xC4 */ u32 unkC4;
 
-unk1: Any**,
-unk2: Any**,
-unk3: Any**,
-unk4: Any**,
-unk5 (will crash the game if changed): Any**,
-unk6 (will crash the game if changed): Any**,
-Who can select: Any** (Bitflag field, ex. Should be FFFFFFFF, not 0xFFFFFFFF),
-unk7: Any**,
-Influences GC?: Any** (int8),
-Ring cost for GCs: Any** (int32),
-FlagPrice in Shop?: Any** (int16),
-Special Flag Innate: Any** (int32),
-Special Flag for GCh1: Any** (int32),
-Special Flag for GCh2: Any** (int32),
-Special Flag for GCh3: Any** (int32),
-Gear Stat Flags: Any** (int32),
-GCh1 Stat Flag: Any** (int32),
-GCh2 Stat Flag: Any** (int32),
-GCh3 Stat Flag: Any** (int32),
-GCh Purchase Modifier: Any** (int32 bitflag field)
+    /// First struct in the array is for exhaust trail details whilst cruising, second struct is for whilst tricking
+	/* 0xC8 - 0x1D0 */ std::array<GearExhaustTrail, 2> exhaustTrails;
+};
+static_assert(sizeof(Gear) == 0x1D0);
 ```
 
 ```
-Note*: read as floats, but unknown values.
+Note*: GearLevelStats at offset 0x68 is as follows (applies for level 1, 2 and 3 in that order):
+	/* 0x0 */ s32 maxAir;
+	/* 0x4 */ s32 passiveAirDrain;
+	/* 0x8 */ s32 driftingAirCost;
+	/* 0xC */ s32 boostCost;
+	/* 0x10 */ s32 tornadoCost;
+	/* 0x14 */ f32 driftDashSpeed;
+	/* 0x18 */ f32 boostSpeed;
 Note**: can be any value, do not include 0x beforehand and write in hexadecimal. Reference the datasheet for the type of numbers accepted for GCH fields.
 ```
-Reference the ZG/RG data sheet to check out more information on what data is accepted (the gear/GC flags sheets in particular are very helpful).
-[Link to the sheets is here.](https://docs.google.com/spreadsheets/d/1I5TnDLOdNcSUzm9QK5Imec4r-FJiksDJskieNlqUI74/edit?usp=sharing)
+Reference the 1.3/1.4 TE data sheet to check out more information on what data is accepted.
+[Link to the sheets is here.](https://docs.google.com/spreadsheets/d/1gWrlt-WG-Mr8xOsceoqc8C0ihSNj6pzDoLgU9zAKUYs/edit#gid=0)

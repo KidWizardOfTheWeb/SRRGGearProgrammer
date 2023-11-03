@@ -5,76 +5,55 @@
 
 import struct
 
+
 def float_to_hex(f):
     return hex(struct.unpack('<I', struct.pack('<f', f))[0])
 
 
-gearStatOffsets = [0x80BA23E0,  # Blue Star
-                   0x80BA2440,  # Yellow Tail
-                   0x80BA24A0,  # Red Rock
-                   0x80BA2500,  # Pink Rose
-                   0x80BA2560,  # Type J
-                   0x80BA25C0,  # Type S
-                   0x80BA2620,  # Type W
-                   0x80BA2680,  # E-Rider
-                   0x80BA26E0,  # Smile
-                   0x80BA2740,  # Temptation
-                   0x80BA27A0,  # Black Shot
-                   0x80BA2800,  # Flame Lance
-                   0x80BA2860,  # Psychic Wave
-                   0x80BA28C0,  # Night Sky
-                   0x80BA2920,  # Rhythm Machine
-                   0x80BA2980,  # Power Egg
-                   0x80BA29E0,  # SCR-GP
-                   0x80BA2A40,  # SCR-HD
-                   0x80BA2AA0,  # Shooting Star
-                   0x80BA2B00,  # Faster
-                   0x80BA2B60,  # Fastest
-                   0x80BA2BC0,  # Turbo Star
-                   0x80BA2C20,  # Light Board
-                   0x80BA2C80,  # Cover S
-                   0x80BA2CE0,  # Cover F
-                   0x80BA2D40,  # Cover P
-                   0x80BA2DA0,  # Advantage S
-                   0x80BA2E00,  # Advantage F
-                   0x80BA2E60,  # Advantage P
-                   0x80BA2EC0,  # Wind Star
-                   0x80BA2F20,  # Road Star
-                   0x80BA2F80,  # Airship
-                   0x80BA2FE0,  # Wheel Custom
-                   0x80BA3040,  # Omnitempus
-                   0x80BA30A0,  # Hyperdrive
-                   0x80BA3100,  # GC Booster
-                   0x80BA3160,  # GC Master
-                   0x80BA31C0,  # Legend
-                   0x80BA3220,  # Shinobi
-                   0x80BA3280,  # Kunoichi
-                   0x80BA32E0,  # Rail Linker
-                   0x80BA3340,  # GP Accumulator
-                   0x80BA33A0,  # Skill Booster
-                   0x80BA3400,  # G Shot
-                   0x80BA3460,  # Master Off-road
-                   0x80BA34C0,  # Reserve Tank
-                   0x80BA3520,  # GP Tank
-                   0x80BA3580,  # Chaos Emerald
-                   0x80BA35E0,  # The Crazy
-                   0x80BA3640,  # Angel・Devil
-                   0x80BA36A0,  # Throttle
-                   0x80BA3700,  # Money Crisis
-                   0x80BA3760,  # Beginner
-                   0x80BA37C0,  # Big Bang
-                   0x80BA3820,  # Gambler
-                   0x80BA3880,  # Bingo Star
-                   0x80BA38E0,  # Wanted
-                   0x80BA3940,  # Hang-On
-                   0x80BA39A0,  # Magic Broom
-                   0x80BA3A00,  # Mag
-                   0x80BA3A60,  # Untouchable
-                   0x80BA3AC0,  # Rainbow
-                   0x80BA3B20  # Wind Catcher
+gearStatOffsets = [0x805E5F40,  # Default Gear
+                   0x805E6110,  # High Booster
+                   0x805E62E0,  # Auto Slider
+                   0x805E64B0,  # Powerful Gear
+                   0x805E6680,  # Fastest
+                   0x805E6850,  # Turbo Star
+                   0x805E6A20,  # Speed Balancer
+                   0x805E6BF0,  # Blue Star II
+                   0x805E6DC0,  # Access
+                   0x805E6F90,  # Beginner
+                   0x805E7160,  # Accelerator
+                   0x805E7330,  # Trap Gear
+                   0x805E7500,  # Light Board
+                   0x805E76D0,  # Slide Booster
+                   0x805E78A0,  # Legend
+                   0x805E7A70,  # Magic Carpet
+                   0x805E7C40,  # Air Broom
+                   0x805E7E10,  # Hovercraft
+                   0x805E7FE0,  # Chaos Emerald
+                   0x805E81B0,  # Faster
+                   0x805E8380,  # Gambler
+                   0x805E8550,  # Power Gear
+                   0x805E8720,  # Opa Opa
+                   0x805E88F0,  # The Crazy
+                   0x805E8AC0,  # Berserker
+                   0x805E8C90,  # E-Rider
+                   0x805E8E60,  # Air Tank
+                   0x805E9030,  # Heavy Bike
+                   0x805E9200,  # Destroyer
+                   0x805E93D0,  # Omnipotence
+                   0x805E95A0,  # Cover-S
+                   0x805E9770,  # Cover-F
+                   0x805E9940,  # Cover-P
+                   0x805E9B10,  # Hang-On
+                   0x805E9CE0,  # Super Hang-On
+                   0x805E9EB0,  # Darkness
+                   0x805EA080,  # Grinder
+                   0x805EA250,  # Advantage-S
+                   0x805EA420,  # Advantage-F
+                   0x805EA5F0,  # Advantage-P
+                   0x805EA7C0  # Cannonball
                    ]
 
-gearGCHOffsets = [0x80BA0E20,  # Blue Star
+gearGCHOffsets = [0x80BA0E20,  # Blue Star TODO: remove this entire struct later, riders 1 doesn't have this lmao
                   0x80BA0E70,  # Yellow Tail
                   0x80BA0EC0,  # Red Rock
                   0x80BA0F10,  # Pink Rose
@@ -139,97 +118,107 @@ gearGCHOffsets = [0x80BA0E20,  # Blue Star
                   0x80BA2180  # Wind Catcher
                   ]
 
-defaultGearNames = ["Blue Star",
-                    "Yellow Tail",
-                    "Red Rock",
-                    "Pink Rose",
-                    "Type J",
-                    "Type S",
-                    "Type W",
-                    "E-Rider",
-                    "Smile",
-                    "Temptation",
-                    "Black Shot",
-                    "Flame Lance",
-                    "Psychic Wave",
-                    "Night Sky",
-                    "Rhythm Machine",
-                    "Power Egg",
-                    "SCR-GP",
-                    "SCR-HD",
-                    "Shooting Star",
-                    "Faster",
-                    "Fastest",
-                    "Turbo Star",
-                    "Light Board",
-                    "Cover S",
-                    "Cover F",
-                    "Cover P",
-                    "Advantage S",
-                    "Advantage F",
-                    "Advantage P",
-                    "Wind Star",
-                    "Road Star",
-                    "Airship",
-                    "Wheel Custom",
-                    "Omnitempus",
-                    "Hyperdrive",
-                    "GC Booster",
-                    "GC Master",
-                    "Legend",
-                    "Shinobi",
-                    "Kunoichi",
-                    "Rail Linker",
-                    "GP Accumulator",
-                    "Skill Booster",
-                    "G Shot",
-                    "Master Off-road",
-                    "Reserve Tank",
-                    "GP Tank",
-                    "Chaos Emerald",
-                    "The Crazy",
-                    "Angel/Devil",
-                    "Throttle",
-                    "Money Crisis",
-                    "Beginner",
-                    "Big Bang",
-                    "Gambler",
-                    "Bingo Star",
-                    "Wanted",
-                    "Hang-On",
-                    "Magic Broom",
-                    "Mag",
-                    "Untouchable",
-                    "Rainbow",
-                    "Wind Catcher"
+defaultGearNames = ["Default Gear"
+                    "High Booster"
+                    "Auto Slider"
+                    "Powerful Gear"
+                    "Fastest"
+                    "Turbo Star"
+                    "Speed Balancer"
+                    "Blue Star II"
+                    "Access"
+                    "Beginner"
+                    "Accelerator"
+                    "Trap Gear"
+                    "Light Board"
+                    "Slide Booster"
+                    "Legend"
+                    "Magic Carpet"
+                    "Air Broom"
+                    "Hovercraft"
+                    "Chaos Emerald"
+                    "Faster"
+                    "Gambler"
+                    "Power Gear"
+                    "Opa Opa"
+                    "The Crazy"
+                    "Berserker"
+                    "E-Rider"
+                    "Air Tank"
+                    "Heavy Bike"
+                    "Destroyer"
+                    "Omnipotence"
+                    "Cover-S"
+                    "Cover-F"
+                    "Cover-P"
+                    "Hang-On"
+                    "Super Hang-On"
+                    "Darkness"
+                    "Grinder"
+                    "Advantage-S"
+                    "Advantage-F"
+                    "Advantage-P"
+                    "Cannonball"
                     ]
 
-gearStatStrings = ['Speed Multiplier',
-                   'Accel. Multiplier',
-                   'Handl. Multiplier',
-                   'Unknown1',
-                   'Unknown2',
-                   'Off-road Multiplier',
-                   'Accel.1 Threshold',
-                   'Accel.2 Threshold',
-                   'Top Speed',
-                   'Acceleration 1',
-                   'Acceleration 2',
-                   'Acceleration 3',
-                   'Handling',
-                   'Unknown3',
-                   'Unknown4',
-                   'Off-road',
-                   'GP Tank Size',
-                   'GC Boost Speed',
-                   'Gravity Dive Spd',
-                   'GP Gain Multiplier',
-                   'Gravity Control Cost',
-                   'Gravity Dive Cost',
-                   'Boost Speed',
-                   'Additional Ring Cap',
-                   'Trick Rank',
-                   'Boost Cost']
+gearStatStrings = [
+    'useFlags',
+    'type',
+    'model',
+    'costInGearShop',
+    'unk8',
+    'acceleration',
+    'topSpeed',
+    'offRoadSpeed',
+    'speedHandlingMultiplier',
+    'weight',
+    'unk20',
+    'extraTypeAttributes',
+    'turningSpeedLoss',
+    'handling',
+    'backAxelHandling',
+    'frontAxelHandling',
+    'driftRadius',
+    'driftRotation',
+    'backAxelDriftRotation',
+    'frontAxelDriftRotation',
+    'unk44',
+    'unk48',
+    'unk4C',
+    'driftDashFrames',
+    'trickAirGainMultiplier',
+    'shortcutAirGainMultiplier',
+    'QTEAirGainMultiplier',
+    'specialFlags',
+    'jumpChargeCostMultiplier',
+    'level 1 maxAir',
+    'level 1 passiveAirDrain',
+    'level 1 driftingAirCost',
+    'level 1 boostCost',
+    'level 1 tornadoCost',
+    'level 1 driftDashSpeed',
+    'level 1 boostSpeed',
+    'level 2 maxAir',
+    'level 2 passiveAirDrain',
+    'level 2 driftingAirCost',
+    'level 2 boostCost',
+    'level 2 tornadoCost',
+    'level 2 driftDashSpeed',
+    'level 2 boostSpeed',
+    'level 3 maxAir',
+    'level 3 passiveAirDrain',
+    'level 3 driftingAirCost',
+    'level 3 boostCost',
+    'level 3 tornadoCost',
+    'level 3 driftDashSpeed',
+    'level 3 boostSpeed',
+    'tempoStat',
+    'efficiencyStat',
+    'combatStat',
+    'weightStat',
+    'unkC0',
+    'unkC4'
+]
 
 gearGCHStrings = ['unk1',
                   'unk2',
@@ -292,29 +281,7 @@ gearIDNum = [0x0,
              0x25,
              0x26,
              0x27,
-             0x28,
-             0x29,
-             0x2A,
-             0x2B,
-             0x2C,
-             0x2D,
-             0x2E,
-             0x2F,
-             0x30,
-             0x31,
-             0x32,
-             0x33,
-             0x34,
-             0x35,
-             0x36,
-             0x37,
-             0x38,
-             0x39,
-             0x3A,
-             0x3B,
-             0x3C,
-             0x3D,
-             0x3E]
+             0x28]
 
 
 def statFileWrite():
@@ -330,11 +297,11 @@ def writeGearStatsToFile():
         gearFile.writelines((gearStatStrings[i]))
         gearFile.write(': ,\n')
 
-    gearFile.write('\n')
-
-    for i in range(len(gearGCHStrings)):
-        gearFile.writelines((gearGCHStrings[i]))
-        gearFile.write(': ,\n')
+    # gearFile.write('\n')
+    #
+    # for i in range(len(gearGCHStrings)):
+    #     gearFile.writelines((gearGCHStrings[i]))
+    #     gearFile.write(': ,\n')
 
     print('Done.')
     return
@@ -359,9 +326,9 @@ def readGearStatsFile():
         if statVal != "":
             try:
                 if i < len(gearStatStrings):
-                    if i < 22:  #   these are float values
+                    if i < 22:  # these are float values TODO: make some way to discriminate between data types for Riders 1
                         statArray.append(float(statVal))
-                    else:   #   Boost cost and onward in this struct are not floats
+                    else:  # Boost cost and onward in this struct are not floats TODO: same as above
                         statArray.append((statVal))
                 else:
                     statArray.append((statVal))
@@ -376,7 +343,7 @@ def readGearStatsFile():
     for i in range(len(statArray)):
         if i != len(gearStatStrings) and j == 0:
             print(gearStatStrings[i] + ": " + str(statArray[i]))
-        else:
+        else: # TODO: remove gearGCHString usage here
             print(gearGCHStrings[j] + ": " + str(statArray[i]))
             j += 1
         pass
@@ -385,16 +352,17 @@ def readGearStatsFile():
     for i in range(len(statArray)):
         if statArray[i] == "Null":
             totalNull += 1
-    if totalNull == 46: # sanity check to ensure the user actually modified the file
+    if totalNull == 46:  # sanity check to ensure the user actually modified the file TODO: modify this goofy ahh magic number
         print('No stats/GCHs to generate. Please edit the stats file you made first to create 04 codes.\n')
         return
 
-    gearPrintOpt = input('\nStats printed. Are these ok? (Y/N)\nSelecting \"Y\" will display the gear list.\nTyping anything else returns to the menu.\n')
+    gearPrintOpt = input(
+        '\nStats printed. Are these ok? (Y/N)\nSelecting \"Y\" will display the gear list.\nTyping anything else returns to the menu.\n')
 
     if gearPrintOpt != 'Y' and gearPrintOpt != 'y':
         return
     print('\nList of gears: ')
-    for i in range (len(defaultGearNames)):
+    for i in range(len(defaultGearNames)):
         print(defaultGearNames[i] + ' - ' + str(gearIDNum[i]))
 
     gearIDSelect = input('Select a gear number from the list to add these stats to (type number exactly as shown)\n')
@@ -407,8 +375,8 @@ def readGearStatsFile():
     if int(gearIDSelect) == int(gearIDNum[int(gearIDSelect)]):
         tempStats = hex(gearStatOffsets[int(gearIDSelect)])
         print('Stats offset: ' + tempStats)
-        tempGCH = hex(gearGCHOffsets[int(gearIDSelect)])
-        print('GCH offset: ' + tempGCH)
+        tempGCH = hex(gearGCHOffsets[int(gearIDSelect)]) # TODO: remove gearGCHString usage here
+        print('GCH offset: ' + tempGCH) # TODO: remove gearGCHString usage here
 
     for i in range(len(gearStatStrings)):
         tempZeros = ''
@@ -416,44 +384,44 @@ def readGearStatsFile():
             ohFourOffset = hex(gearStatOffsets[int(gearIDSelect)] + 0x4 * i)
             ohFourOffset = ohFourOffset.replace("0x80", "04", 1)
             gearFile.writelines(str(ohFourOffset))
-            if i < 22:  # float values in stats
+            if i < 22:  # float values in stats TODO: figure out how to determine what is a float from the stats list or not
                 ohFourStats = float_to_hex(statArray[i])
                 ohFourStats = ohFourStats[2:10]
                 totalZeroPad = 8 - len(ohFourStats)
                 for i in range(totalZeroPad):
                     tempZeros += '0'  # adds x amount of zeros needed
-            else:   # non float values
+            else:  # non float values
                 ohFourStats = int(statArray[i])
                 if ohFourStats < 0:
                     match i:
-                        case 22:    #   boost speed addi, 32bit
+                        case 22:  # boost speed addi, 32bit
                             ohFourStats = 4294967295 - abs(ohFourStats) + 1  # ex. 255 - 20 + 1s comp
                             ohFourStats = hex(ohFourStats)  # convert to hex
                             ohFourStats = ohFourStats.replace("-", "", 1)
                             ohFourStats = ohFourStats.replace("0x", "", 1)
                             pass
 
-                        case 23:    #   ring cap addi, 16bit
+                        case 23:  # ring cap addi, 16bit
                             ohFourStats = 65535 - abs(ohFourStats) + 1  # ex. 255 - 20 + 1s comp
                             ohFourStats = hex(ohFourStats)  # convert to hex
                             ohFourStats = ohFourStats.replace("-", "", 1)
                             ohFourStats = ohFourStats.replace("0x", "", 1)
                             pass
 
-                        case 24:    #   trick rank (useless but include anyway ig), 8bit
+                        case 24:  # trick rank (useless but include anyway ig), 8bit
                             ohFourStats = 255 - abs(ohFourStats) + 1  # ex. 255 - 20 + 1s comp
                             ohFourStats = hex(ohFourStats)  # convert to hex
                             ohFourStats = ohFourStats.replace("-", "", 1)
                             ohFourStats = ohFourStats.replace("0x", "", 1)
                             pass
 
-                        case 25:    #   boost cost addi, 8bit
+                        case 25:  # boost cost addi, 8bit
                             ohFourStats = 255 - abs(ohFourStats) + 1  # ex. 255 - 20 + 1s comp
                             ohFourStats = hex(ohFourStats)  # convert to hex
                             ohFourStats = ohFourStats.replace("-", "", 1)
                             ohFourStats = ohFourStats.replace("0x", "", 1)
                             pass
-                        case _:     #   default case, every other number is a float
+                        case _:  # default case, every other number is a float
                             ohFourStats = hex(ohFourStats)
                             ohFourStats = ohFourStats.replace("0x", "", 1)
                     totalZeroPad = 8 - len(ohFourStats)
@@ -468,9 +436,9 @@ def readGearStatsFile():
                         tempZeros += '0'  # adds x amount of zeros needed
             gearFile.write(' ' + tempZeros + ohFourStats + '\n')
 
-    for i in range(26, len(gearGCHStrings) + 26):
+    for i in range(26, len(gearGCHStrings) + 26): # TODO: remove gearGCHString usage here
         if statArray[i] != "Null":
-            ohFourOffset = hex(gearGCHOffsets[int(gearIDSelect)] + (0x4 * i) - 104)
+            ohFourOffset = hex(gearGCHOffsets[int(gearIDSelect)] + (0x4 * i) - 104) # TODO: remove gearGCHString usage here
             ohFourOffset = ohFourOffset.replace("0x80", "04", 1)
             gearFile.writelines(str(ohFourOffset))
             ohFourStats = (statArray[i])  # convert '0x10' to 000000010
@@ -483,7 +451,6 @@ def readGearStatsFile():
     pass
 
     print('04 code generation successful. Check for a file with the gear name that you modified for it.')
-
 
 
 def menuSelect():
