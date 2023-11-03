@@ -1,4 +1,4 @@
-# SRRG_EXGearProgrammer
+# SRRG_EXGearProgrammer: Vanilla+DX Edition
 A tool designed to print 04 gecko codes in order to modify gear stats for Vanilla Sonic Riders and Sonic Riders DX. Needs python 3.1 or higher. Can be run on the command line.
 Running the tool will present 3 options:
 ```
