@@ -284,9 +284,9 @@ gearIDNum = [0x0,
              0x28]
 
 # We use this to determine the data type a gear stat is for when we write the hex value for geckos later
-gearStatDataLengths = ['u32',
+gearStatDataLengths = ['useFlag',
                        'u8',
-                       'u8',
+                       'model',
                        'u16',
                        'u32',
                        'f32',
@@ -294,7 +294,7 @@ gearStatDataLengths = ['u32',
                        'f32',
                        'f32',
                        'f32',
-                       'fillerData<0x3> unk20',
+                       'unk20',
                        'u8',
                        'f32',
                        'f32',
@@ -311,7 +311,7 @@ gearStatDataLengths = ['u32',
                        'f32',
                        'f32',
                        'f32',
-                       'u32',
+                       'SPF',
                        'f32',
 
                        's32',
@@ -454,7 +454,7 @@ def readGearStatsFile():
     gearFile = open(defaultGearNames[int(gearIDSelect)] + '.txt', "w")
 
     tempStats = 0
-    tempGCH = 0
+    # tempGCH = 0
 
     if int(gearIDSelect) == int(gearIDNum[int(gearIDSelect)]):
         tempStats = hex(gearStatOffsets[int(gearIDSelect)])
@@ -464,17 +464,70 @@ def readGearStatsFile():
 
     for i in range(len(gearStatStrings)):
         tempZeros = ''
+        offIncr = 0x4
         if statArray[i] != "Null":
-            ohFourOffset = hex(gearStatOffsets[int(gearIDSelect)] + 0x4 * i)
+            match gearStatDataLengths[i]:   # We need this to increment our addresses properly
+                case 'f32':
+                    offIncr = 0x4
+                    pass
+                case 'u8':
+                    offIncr = 0x1
+                    pass
+                case 's8':
+                    offIncr = 0x1
+                    pass
+                case 'u16':
+                    offIncr = 0x2
+                    pass
+                case 'u32':
+                    offIncr = 0x4
+                    pass
+                case 's32':
+                    offIncr = 0x4
+                    pass
+                case 'model':
+                    offIncr = 0x2
+                    pass
+                case 'SPF':
+                    offIncr = 0x4
+                    pass
+                case 'useFlag':
+                    offIncr = 0x4
+                    pass
+                case 'unk20':
+                    offIncr = 0x3
+                case _:
+                    offIncr = 0x4
+                    pass
+            ohFourOffset = hex(gearStatOffsets[int(gearIDSelect)] + 0x4 * i)    # TODO: this is NOT all 0x4 in length
             ohFourOffset = ohFourOffset.replace("0x80", "04", 1)
-            gearFile.writelines(str(ohFourOffset))
-            if i < 22:  # float values in stats TODO: figure out how to determine what is a float from the stats list or not
+            gearFile.writelines(str(ohFourOffset))  # writes address
+            if gearStatDataLengths[i] == 'f32':  # float values in stats
                 ohFourStats = float_to_hex(statArray[i])
                 ohFourStats = ohFourStats[2:10]
                 totalZeroPad = 8 - len(ohFourStats)
                 for i in range(totalZeroPad):
                     tempZeros += '0'  # adds x amount of zeros needed
-            else:  # non float values
+                gearFile.write(' ' + tempZeros + str(ohFourStats) + '\n')
+                pass
+            elif gearStatDataLengths[i] == "useFlag" or gearStatDataLengths[i] == "SPF":    # should stay as written w/ no modification, full line
+                ohFourStats = (statArray[i])
+                ohFourStats = ohFourStats.replace("0x", "", 1)
+                totalZeroPad = 8 - len(ohFourStats)
+                for i in range(totalZeroPad):
+                    tempZeros += '0'  # adds x amount of zeros needed
+                gearFile.write(' ' + tempZeros + str(ohFourStats) + '\n')
+                pass
+            elif gearStatDataLengths[i] == "model":
+                # gearFile.writelines(str(ohFourOffset))  # writes address
+                ohFourStats = (statArray[i])
+                ohFourStats = ohFourStats.replace("0x", "", 1)
+                totalZeroPad = 8 - len(ohFourStats)
+                for i in range(totalZeroPad):
+                    tempZeros += '0'  # adds x amount of zeros needed
+                gearFile.write(' ' + str(ohFourStats) + tempZeros + '\n')
+                pass
+            else:
                 ohFourStats = int(statArray[i])
                 if ohFourStats < 0:
                     match i:
@@ -511,14 +564,24 @@ def readGearStatsFile():
                     totalZeroPad = 8 - len(ohFourStats)
                     for i in range(totalZeroPad):
                         tempZeros += 'F'  # adds x amount of F's needed
+                    gearFile.write(' ' + tempZeros + str(ohFourStats) + '\n')
+                    pass
                     # gearFile.write(' ' + tempZeros + ohFourStats + '\n')
                 else:
-                    ohFourStats = hex(ohFourStats)
-                    ohFourStats = ohFourStats.replace("0x", "", 1)
-                    totalZeroPad = 8 - len(ohFourStats)
-                    for i in range(totalZeroPad):
-                        tempZeros += '0'  # adds x amount of zeros needed
-            gearFile.write(' ' + tempZeros + ohFourStats + '\n')
+                    # if gearStatDataLengths[i] != "SPF":
+                        ohFourStats = hex(ohFourStats)
+                        ohFourStats = ohFourStats.replace("0x", "", 1)
+                        totalZeroPad = 8 - len(ohFourStats)
+                        for i in range(totalZeroPad):
+                            tempZeros += '0'  # adds x amount of zeros needed
+                        gearFile.write(' ' + tempZeros + str(ohFourStats) + '\n')
+                        pass
+                    # else:
+                        # totalZeroPad = 8 - len(ohFourStats)
+                        # for i in range(totalZeroPad):
+                        #     tempZeros += '0'  # adds x amount of zeros needed
+                        # pass
+            # gearFile.write(' ' + tempZeros + str(ohFourStats) + '\n')
 
     # for i in range(26, len(gearGCHStrings) + 26):  # TODO: remove gearGCHString usage here
     #     if statArray[i] != "Null":
