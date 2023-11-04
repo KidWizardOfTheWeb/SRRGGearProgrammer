@@ -118,46 +118,46 @@ gearGCHOffsets = [0x80BA0E20,  # Blue Star TODO: remove this entire struct later
                   0x80BA2180  # Wind Catcher
                   ]
 
-defaultGearNames = ["Default Gear"
-                    "High Booster"
-                    "Auto Slider"
-                    "Powerful Gear"
-                    "Fastest"
-                    "Turbo Star"
-                    "Speed Balancer"
-                    "Blue Star II"
-                    "Access"
-                    "Beginner"
-                    "Accelerator"
-                    "Trap Gear"
-                    "Light Board"
-                    "Slide Booster"
-                    "Legend"
-                    "Magic Carpet"
-                    "Air Broom"
-                    "Hovercraft"
-                    "Chaos Emerald"
-                    "Faster"
-                    "Gambler"
-                    "Power Gear"
-                    "Opa Opa"
-                    "The Crazy"
-                    "Berserker"
-                    "E-Rider"
-                    "Air Tank"
-                    "Heavy Bike"
-                    "Destroyer"
-                    "Omnipotence"
-                    "Cover-S"
-                    "Cover-F"
-                    "Cover-P"
-                    "Hang-On"
-                    "Super Hang-On"
-                    "Darkness"
-                    "Grinder"
-                    "Advantage-S"
-                    "Advantage-F"
-                    "Advantage-P"
+defaultGearNames = ["Default Gear",
+                    "High Booster",
+                    "Auto Slider",
+                    "Powerful Gear",
+                    "Fastest",
+                    "Turbo Star",
+                    "Speed Balancer",
+                    "Blue Star II",
+                    "Access",
+                    "Beginner",
+                    "Accelerator",
+                    "Trap Gear",
+                    "Light Board",
+                    "Slide Booster",
+                    "Legend",
+                    "Magic Carpet",
+                    "Air Broom",
+                    "Hovercraft",
+                    "Chaos Emerald",
+                    "Faster",
+                    "Gambler",
+                    "Power Gear",
+                    "Opa Opa",
+                    "The Crazy",
+                    "Berserker",
+                    "E-Rider",
+                    "Air Tank",
+                    "Heavy Bike",
+                    "Destroyer",
+                    "Omnipotence",
+                    "Cover-S",
+                    "Cover-F",
+                    "Cover-P",
+                    "Hang-On",
+                    "Super Hang-On",
+                    "Darkness",
+                    "Grinder",
+                    "Advantage-S",
+                    "Advantage-F",
+                    "Advantage-P",
                     "Cannonball"
                     ]
 
@@ -283,6 +283,68 @@ gearIDNum = [0x0,
              0x27,
              0x28]
 
+# We use this to determine the data type a gear stat is for when we write the hex value for geckos later
+gearStatDataLengths = ['u32',
+                       'u8',
+                       'u8',
+                       'u16',
+                       'u32',
+                       'f32',
+                       'f32',
+                       'f32',
+                       'f32',
+                       'f32',
+                       'fillerData<0x3> unk20',
+                       'u8',
+                       'f32',
+                       'f32',
+                       'f32',
+                       'f32',
+                       'f32',
+                       'f32',
+                       'f32',
+                       'f32',
+                       'f32',
+                       'f32',
+                       'f32',
+                       's32',
+                       'f32',
+                       'f32',
+                       'f32',
+                       'u32',
+                       'f32',
+
+                       's32',
+                       's32',
+                       's32',
+                       's32',
+                       's32',
+                       'f32',
+                       'f32',
+
+                       's32',
+                       's32',
+                       's32',
+                       's32',
+                       's32',
+                       'f32',
+                       'f32',
+
+                       's32',
+                       's32',
+                       's32',
+                       's32',
+                       's32',
+                       'f32',
+                       'f32',
+
+                       's8'
+                       's8',
+                       's8',
+                       's8',
+                       'u32',
+                       'u32']
+
 
 def statFileWrite():
     pass
@@ -326,12 +388,34 @@ def readGearStatsFile():
         if statVal != "":
             try:
                 if i < len(gearStatStrings):
-                    if i < 22:  # these are float values TODO: make some way to discriminate between data types for Riders 1
-                        statArray.append(float(statVal))
-                    else:  # Boost cost and onward in this struct are not floats TODO: same as above
-                        statArray.append((statVal))
+                    match gearStatDataLengths[i]:
+                        case 'f32':
+                            statArray.append(float(statVal))
+                            pass
+                        case _:
+                            statArray.append(statVal)
+                            pass
+                        # case 'u8':
+                        #     statArray.append(statVal)
+                        #     pass
+                        # case 's8':
+                        #     statArray.append(statVal)
+                        #     pass
+                        # case 'u16':
+                        #     statArray.append(statVal)
+                        #     pass
+                        # case 'u32':
+                        #     statArray.append(statVal)
+                        #     pass
+                        # case 's32':
+                        #     statArray.append(statVal)
+                        #     pass
+                    # if i < 22:  # these are float values TODO: make some way to discriminate between data types for Riders 1
+                    #     statArray.append(float(statVal))
+                    # else:  # Boost cost and onward in this struct are not floats TODO: same as above
+                    #     statArray.append((statVal))
                 else:
-                    statArray.append((statVal))
+                    statArray.append((statVal))  # probably not necessary?
             except:
                 statArray.append("Null")
         else:
@@ -339,21 +423,21 @@ def readGearStatsFile():
         pass
 
     #   prints read file into console
-    j = 0
+    # j = 0  and j == 0
     for i in range(len(statArray)):
-        if i != len(gearStatStrings) and j == 0:
+        if i < len(gearStatStrings):
             print(gearStatStrings[i] + ": " + str(statArray[i]))
-        else: # TODO: remove gearGCHString usage here
-            print(gearGCHStrings[j] + ": " + str(statArray[i]))
-            j += 1
+        # else:  # TODO: remove gearGCHString usage here
+        #     print(gearGCHStrings[j] + ": " + str(statArray[i]))
+        #     j += 1
         pass
 
     totalNull = 0
     for i in range(len(statArray)):
         if statArray[i] == "Null":
             totalNull += 1
-    if totalNull == 46:  # sanity check to ensure the user actually modified the file TODO: modify this goofy ahh magic number
-        print('No stats/GCHs to generate. Please edit the stats file you made first to create 04 codes.\n')
+    if totalNull == 76:  # sanity check to ensure the user actually modified the file
+        print('No stats to generate. Please edit the stats file you made first to create 04 codes.\n')
         return
 
     gearPrintOpt = input(
@@ -375,8 +459,8 @@ def readGearStatsFile():
     if int(gearIDSelect) == int(gearIDNum[int(gearIDSelect)]):
         tempStats = hex(gearStatOffsets[int(gearIDSelect)])
         print('Stats offset: ' + tempStats)
-        tempGCH = hex(gearGCHOffsets[int(gearIDSelect)]) # TODO: remove gearGCHString usage here
-        print('GCH offset: ' + tempGCH) # TODO: remove gearGCHString usage here
+        # tempGCH = hex(gearGCHOffsets[int(gearIDSelect)])  # TODO: remove gearGCHString usage here
+        # print('GCH offset: ' + tempGCH)  # TODO: remove gearGCHString usage here
 
     for i in range(len(gearStatStrings)):
         tempZeros = ''
@@ -436,18 +520,19 @@ def readGearStatsFile():
                         tempZeros += '0'  # adds x amount of zeros needed
             gearFile.write(' ' + tempZeros + ohFourStats + '\n')
 
-    for i in range(26, len(gearGCHStrings) + 26): # TODO: remove gearGCHString usage here
-        if statArray[i] != "Null":
-            ohFourOffset = hex(gearGCHOffsets[int(gearIDSelect)] + (0x4 * i) - 104) # TODO: remove gearGCHString usage here
-            ohFourOffset = ohFourOffset.replace("0x80", "04", 1)
-            gearFile.writelines(str(ohFourOffset))
-            ohFourStats = (statArray[i])  # convert '0x10' to 000000010
-            ohFourStats.replace("0x", "", 1)
-            totalZeroPad = 8 - len(ohFourStats)
-            tempZeros = ''
-            for i in range(totalZeroPad):
-                tempZeros += '0'  # adds x amount of zeros needed
-            gearFile.write(' ' + tempZeros + ohFourStats + '\n')
+    # for i in range(26, len(gearGCHStrings) + 26):  # TODO: remove gearGCHString usage here
+    #     if statArray[i] != "Null":
+    #         ohFourOffset = hex(
+    #             gearGCHOffsets[int(gearIDSelect)] + (0x4 * i) - 104)  # TODO: remove gearGCHString usage here
+    #         ohFourOffset = ohFourOffset.replace("0x80", "04", 1)
+    #         gearFile.writelines(str(ohFourOffset))
+    #         ohFourStats = (statArray[i])  # convert '0x10' to 000000010
+    #         ohFourStats.replace("0x", "", 1)
+    #         totalZeroPad = 8 - len(ohFourStats)
+    #         tempZeros = ''
+    #         for i in range(totalZeroPad):
+    #             tempZeros += '0'  # adds x amount of zeros needed
+    #         gearFile.write(' ' + tempZeros + ohFourStats + '\n')
     pass
 
     print('04 code generation successful. Check for a file with the gear name that you modified for it.')
@@ -460,7 +545,7 @@ def menuSelect():
     menuOperator = 0
     while menuOperator != 3:
         menuOperator = input(
-            'Select an option:\n1. Write blank gear stats/GCH file\n2. Read gear stats/GCH file\n3. Quit\n')
+            'Select an option:\n1. Write blank gear stats file\n2. Read gear stats file\n3. Quit\n')
         match menuOperator:
             case "1":
                 writeGearStatsToFile()
