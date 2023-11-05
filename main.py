@@ -537,7 +537,7 @@ def readGearStatsFile():
                         ohFourStats = ohFourStats.replace("-", "", 1)
                         ohFourStats = ohFourStats.replace("0x", "", 1)
 
-                    starString += str(ohFourStats)
+                    starString += "0" + str(ohFourStats)
 
 
                 totalZeroPad = 8 - len(starString)
