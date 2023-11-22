@@ -183,7 +183,7 @@ gearStatStrings = [
     'backAxelDriftRotation',
     'frontAxelDriftRotation',
     'unk44',
-    'unk48',
+    'driftCap',
     'unk4C',
     'driftDashFrames',
     'trickAirGainMultiplier',

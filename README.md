@@ -31,7 +31,7 @@ struct Gear {
 	/* 0x3C */ f32 backAxelDriftRotation;
 	/* 0x40 */ f32 frontAxelDriftRotation;
 	/* 0x44 */ f32 unk44;
-	/* 0x48 */ f32 unk48;
+	/* 0x48 */ f32 driftCap; **
 	/* 0x4C */ f32 unk4C;
 	/* 0x50 */ s32 driftDashFrames; ***
 	/* 0x54 */ f32 trickAirGainMultiplier;
